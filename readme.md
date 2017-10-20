@@ -1,0 +1,15 @@
+#旋转+畸变
+###本文件夹用于验证一次性校正畸变+旋转的可能性。
+##目的
+	在做图像融合的过程中，畸变是肯定需要校正的。在装配过程中，可能由于安装原因，
+摄像机产生一定角度的旋转。
+	在用FPGA做畸变校正的项目中，运用的是查找表的方法，我们希望
+也用同样的方法，在不增加查找表的数量的情况下，能一次性完成畸变
++旋转的校正。
+##文件注释
+Checkerboard.m：产生棋盘格图片，生成checkerboard.bmp
+DistortionCorrection.m：畸变校正
+myrotate.m：图片旋转
+createDaR.m：产生畸变+旋转的测试图片，先畸变，后旋转，生成testimg.bmp
+restoreRaD.m：还原上述测试图片，先校正旋转，后校正畸变，生成restoreimg.bmp
+LutMethod.m：用一张表校正测试图片，生成lutimg.bmp
