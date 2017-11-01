@@ -4,7 +4,7 @@ function [Img_scaler,ScalerLutX,ScalerLutY] = imScaler(Img,MagnifyH,MagnifyW)
 %%时间：2017/6/30
 [Hin,Win]=size(Img);
 Hout = MagnifyH*Hin;     %缩小两倍
-Wout = MagnifyW*Hin;
+Wout = MagnifyW*Win;
 fh = Hin/Hout;
 fw = Win/Wout;
 Img_scaler  = zeros(Hout,Wout);    %像素是整数  
@@ -20,7 +20,7 @@ for i=1:Hout
         j1=round(j1);         %最邻近插值  
         ScalerLutX(i,j) = i1;
         ScalerLutY(i,j) = j1;
-        if i1>0 && j1>0&& Win >= i1&& Hin >= j1  
+        if i1>0 && j1>0&& Hin >= i1&& Win >= j1  
             Img_scaler(i,j) = Img(i1,j1);  
         end  
     end  
