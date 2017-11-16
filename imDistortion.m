@@ -1,13 +1,14 @@
-function [img_Distortion,DistortionLutX,DistortionLutY] = imDistortion(Img,A,D)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%畸变校正
-%%参数为A:相机内参。fx,fy为焦距，cx,cy为主点位置
-%    |fx 0 cx|
-% A= |0 fy cy|
-%    |0  0 1 |
-%%D:畸变系数
-%%D=[k1,k2]
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [Img_Distortion,DistortionLutX,DistortionLutY] = imDistortion(Img,A,D)
+%函数功能：畸变校正
+%函数输入：Img：待校正畸变图像，uint8或double格式
+%          A:相机内参。其中，
+%               fx,fy为焦距，cx,cy为主点位置
+%                   |fx 0 cx|
+%                A= |0 fy cy|
+%                   |0  0 1 |
+%        D:畸变系数，D=[k1,k2]
+% 函数输出：Img_Distortion：校正畸变后图像,uint8格式
+%          DistortionX：旋转查找表X 
     fx = A(1,1);
     fy = A(2,2);
     cx = A(1,3);
@@ -45,11 +46,11 @@ function [img_Distortion,DistortionLutX,DistortionLutY] = imDistortion(Img,A,D)
     DistortionLutY = floor(v_d);
 
     
-img_Distortion = zeros(M,N);    
+Img_Distortion = zeros(M,N);    
 for i = 1 : M
     for j = 1 : N
         if DistortionLutX(i,j)>0 && DistortionLutY(i,j)>0 && M >= DistortionLutX(i,j) && N >= DistortionLutY(i,j) 
-            img_Distortion(i,j) = Img(DistortionLutX(i,j),DistortionLutY(i,j));    
+            Img_Distortion(i,j) = Img(DistortionLutX(i,j),DistortionLutY(i,j));    
         end
     end
 end
