@@ -1,14 +1,15 @@
 function [Img_Distortion,DistortionLutX,DistortionLutY] = imDistortion(Img,A,D)
 %函数功能：畸变校正
 %函数输入：Img：待校正畸变图像，uint8或double格式
-%          A:相机内参。其中，
+%           A:相机内参。其中，
 %               fx,fy为焦距，cx,cy为主点位置
 %                   |fx 0 cx|
 %                A= |0 fy cy|
 %                   |0  0 1 |
 %        D:畸变系数，D=[k1,k2]
-% 函数输出：Img_Distortion：校正畸变后图像,uint8格式
-%          DistortionX：旋转查找表X 
+% 函数输出： Img_Distortion：校正畸变后图像,uint8格式
+%           DistortionX：畸变查找表X 
+%           DistortionY：畸变查找表Y 
     fx = A(1,1);
     fy = A(2,2);
     cx = A(1,3);

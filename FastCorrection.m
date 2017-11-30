@@ -27,15 +27,15 @@ Data            By          Version         Change Description
 clear
 clc
 %% input parameter
-angle
-fh
-fw
-tx
-ty
-pivotH
-pivotW
-A
-D
+angle = -5;
+fh = 0.5;
+fw = 0.5;
+tx = 20;
+ty = 40;
+pivotH = 20;
+pivotW = 40;
+A = [80,0,40;0,80,40;0,0,1];
+D = [0,0];
 %% data path
 m_path = mfilename('fullpath');
 slash_num = strfind(m_path,'\');
@@ -54,14 +54,6 @@ Img1=imread(strcat(pathname,filename));
 [filename,pathname]=uigetfile({'*.*','All Files(*.*)'},'Select the image to be registered',...
                           input_path);
 Img2=imread(strcat(pathname,filename));
-%% Display the reference image and the image to be registered
-figure;
-subplot(1,2,1);
-imshow(image_1);
-title('Reference image');
-subplot(1,2,2);
-imshow(image_2);
-title('Image to be registered');
 %% Convert input image format
 [h1,w1,num1]=size(Img1);
 [h2,w2,num2]=size(Img2);
@@ -77,7 +69,7 @@ Img2=double(Img2);
 %% Distortion
 [Img_Distortion,DistortionLutX,DistortionLutY] = imDistortion(Img2,A,D);
 %% Scaler
-[Img_scaler,ScalerLutX,ScalerLutY] = imScaler(Img_Distortion,fh,fw,h1,w1);
+[Img_scaler,ScalerLutX,ScalerLutY] = imScaler(Img2,fh,fw,h1,w1);
 
 %% Translation
 [Img_translation,TranslationLutX,TranslationLutY] = imTranslation(Img_scaler,tx,ty);
@@ -85,90 +77,84 @@ Img2=double(Img2);
 %% Rotate
 [Img_rotate,RotateLutX,RotateLutY] = imRotate_pivot(Img_translation,angle,pivotH,pivotW);
 %% 生成总查找表并给出结果
-[M,N] = size(Img_Distortion);
+[M,N] = size(Img_rotate);
 
-[P,Q] = size(RotateLutX);
+[P,Q] = size(TranslationLutX);
 temp1X = zeros(P,Q);
 temp1Y = zeros(P,Q);
 for i = 1 : P
     for j = 1 : Q
-        if DistortionLutX(i,j)>0 && DistortionLutY(i,j)>0 && P >= DistortionLutX(i,j) && Q >= DistortionLutY(i,j)  
-            temp1X(i,j) = RotateLutX(DistortionLutX(i,j),DistortionLutY(i,j));
-            temp1Y(i,j) = RotateLutY(DistortionLutX(i,j),DistortionLutY(i,j));
+        if RotateLutX(i,j)>0 && RotateLutY(i,j)>0 && P >= RotateLutX(i,j) && Q >= RotateLutY(i,j)  
+            temp1X(i,j) = TranslationLutX(RotateLutX(i,j),RotateLutY(i,j));
+            temp1Y(i,j) = TranslationLutY(RotateLutX(i,j),RotateLutY(i,j));
         end
     end
 end
 
 
-[P,Q] = size(TranslationLutX);
+[P,Q] = size(ScalerLutX);
 temp2X = zeros(P,Q);
 temp2Y = zeros(P,Q);
 for i = 1 : P
     for j = 1 : Q
         if temp1X(i,j)>0 && temp1Y(i,j)>0 && P >= temp1X(i,j) && Q >= temp1Y(i,j)  
-            temp2X(i,j) = TranslationLutX(temp1X(i,j),temp1Y(i,j));
-            temp2Y(i,j) = TranslationLutY(temp1X(i,j),temp1Y(i,j));
+            temp2X(i,j) = ScalerLutX(temp1X(i,j),temp1Y(i,j));
+            temp2Y(i,j) = ScalerLutY(temp1X(i,j),temp1Y(i,j));
         end
     end
 end
 
-[P,Q] = size(ScalerLutX);
-UnifyLutX = zeros(P,Q);
-UnifyLutY = zeros(P,Q);
-for i = 1 : P
-    for j = 1 : Q
+[P,Q] = size(DistortionLutX);
+UnifyLutX = zeros(M,N);
+UnifyLutY = zeros(M,N);
+for i = 1 : M
+    for j = 1 : N
         if temp2X(i,j)>0 && temp2Y(i,j)>0 && P >= temp2X(i,j) && Q >= temp2Y(i,j)  
-            UnifyLutX(i,j) = ScalerLutX(temp2X(i,j),temp2Y(i,j));
-            UnifyLutY(i,j) = ScalerLutY(temp2X(i,j),temp2Y(i,j));      
+            UnifyLutX(i,j) = DistortionLutX(temp2X(i,j),temp2Y(i,j));
+            UnifyLutY(i,j) = DistortionLutY(temp2X(i,j),temp2Y(i,j));      
         end
     end
 end
 
-dataout = zeros(P,Q);
- for i = 1 : P
-     for j = 1 : Q
-         if UnifyLutX(i,j)>0 && UnifyLutY(i,j)>0 && sh >= UnifyLutX(i,j) && sw >= UnifyLutY(i,j) 
-             dataout(i,j) = img1(UnifyLutX(i,j),UnifyLutY(i,j));
+dataout = zeros(M,N);
+ for i = 1 : M
+     for j = 1 : N
+         if UnifyLutX(i,j)>0 && UnifyLutY(i,j)>0 && h2 >= UnifyLutX(i,j) && w2 >= UnifyLutY(i,j) 
+             dataout(i,j) = Img2(UnifyLutX(i,j),UnifyLutY(i,j));
          end
      end
  end
 
 
     %对比图像
-    subplot(231);     
-        imshow(img1);
+    subplot(141);     
+        imshow(uint8(Img2));
         title('原图像');
-    subplot(232);
-         imshow(img_scaler);
-         title('校正缩放');
-    subplot(233);
-         imshow(img_translation);
-         title('校正平移');
-    subplot(234);
-         imshow(img_rotate);
-         title('校正旋转');
-    subplot(235);
-        imshow(Img_Distortion);
-        title('校正畸变');
-    subplot(236);
-        imshow(dataout);
+    subplot(142);     
+        imshow(uint8(Img1));
+        title('目标图像');    
+    subplot(143);
+        imshow(uint8(Img_rotate));
+        title('校正后');
+    subplot(144);
+        imshow(uint8(dataout));
         title('统一校正');     
         
-        
-imwrite(dataout,'D:\work\Projects\matlab\Correction\output\LutMethod.bmp');
-
-[P,Q] = size(UnifyLutX);
-loc = zeros(P,Q);
-for i = 1 : P
-    for j = 1 :Q
-        if UnifyLutX(i,j)==0 || UnifyLutY(i,j)==0
-            loc(i,j) = 0;
-        else
-            loc(i,j) = (UnifyLutX(i,j) - 1) * 346 + (UnifyLutY(i,j) - 1);
-        end
-    end
-end
-coe(loc,'LutMethodloc');
-disp('已生成LutMethodloc.coe文件')
-toc
+%% 输出图片与查找表        
+% imwrite(dataout,'D:\work\Projects\matlab\Correction\output\LutMethod.bmp');
+% 
+% [P,Q] = size(UnifyLutX);
+% loc = zeros(P,Q);
+% for i = 1 : P
+%     for j = 1 :Q
+%         if UnifyLutX(i,j)==0 || UnifyLutY(i,j)==0
+%             loc(i,j) = 0;
+%         else
+%             loc(i,j) = (UnifyLutX(i,j) - 1) * 346 + (UnifyLutY(i,j) - 1);
+%         end
+%     end
+% end
+% coe(loc,'LutMethodloc');
+% disp('已生成LutMethodloc.coe文件')
+% toc
 

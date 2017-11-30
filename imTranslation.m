@@ -17,8 +17,8 @@ TranslationLutY = zeros(Hin,Win);
 %% Translation  
 for x=1:Win  
     for y=1:Hin  
-        x0 =x+tx;  
-        y0= y+ty;      
+        x0 =x-tx;  
+        y0= y-ty;      
           
         x0=round(x0);         %最邻近插值  
         y0=round(y0);         %最邻近插值  

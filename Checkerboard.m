@@ -8,8 +8,9 @@ I = checkerboard(20,2,4);
 I1 = I(:,1:N/2)*256;
 I2 = ones(140,140)*128;
 I2(21:100,41:120) = I1;
+I1 = uint8(I1);
 I2 = uint8(I2);
-imshow(I2)
-imwrite(I2,'D:\work\Projects\matlab\FastCorrection\src\checkerboard.bmp','bmp');
+imwrite(I1,'D:\work\Projects\matlab\FastCorrection\src\1.bmp','bmp');
+imwrite(I2,'D:\work\Projects\matlab\FastCorrection\src\2.bmp','bmp');
 
 

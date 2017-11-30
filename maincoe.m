@@ -14,6 +14,6 @@ for i = 1 : P
         end
     end
 end
-coe(loc,'LutMethodloc');
+mat2coe(loc,'LutMethodloc');
 disp('已生成LutMethodloc.coe文件')
 toc

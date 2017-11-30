@@ -1,8 +1,10 @@
-function [ output_args ] = coe( input_args , str )
-%把输入矩阵转换为.coe格式文件输出
+function [ output_args ] = mat2coe( input_args , output_filename )
+%函数功能：把输入mat矩阵转换为.coe格式文件输出
+%函数输入：input_args：输入mat矩阵 
+%          output_filename：为输出.coe文件命名
 %coe(输入矩阵，输出.coe格式文件的文件名)
 
-fid = fopen([str,'.coe'],'wt');
+fid = fopen([output_filename,'.coe'],'wt');
 fprintf(fid,'memory_initialization_radix = 10;\nmemory_initialization_vector = ');
 
 [M,N] = size(input_args);

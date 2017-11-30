@@ -16,12 +16,11 @@ Img = double(Img);
 [inputH,inputW]=size(Img);
 output_H = round(inputH/fh);    
 output_W = round(inputW/fw);
-if nargin == 3
-        output_H = output_H;
-        output_W = output_W;
-elseif nargin == 5
+if nargin == 5
+        if output_H<=varargin{1} && output_W<=varargin{2}
             output_H = varargin{1};
             output_W = varargin{2};
+        end
 else
         disp('The number of imScaler''s input parameters of  is WRONG! ');
         return;
