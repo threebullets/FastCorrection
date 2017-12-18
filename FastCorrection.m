@@ -11,13 +11,12 @@ Email Address       :       15611662571@163.com
 Filename            :       FastCorrection.v
 Data                :       2017-12-18
 Description         :       Fast correction for image registration.
-Modification History    :   1)The main function 'FastCorrection' can be 
-                              used in manual correction,in other words,
-                            the correction peremeters are inputed manually.
+Modification History    :   1)Modify the output location of .coe
+                            2)Modify the readme file.
 
 Data            By          Version         Change Description
 =========================================================================
-17/12/18        liubing       2.0               Reorganized
+17/12/18        liubing       2.1               Modify
 -------------------------------------------------------------------------
 %}
 %% 
@@ -69,7 +68,7 @@ Img_infrared=double(Img_infrared);
 %% create lut
 [Lut] = CreateLut(w1,UnifyLutX,UnifyLutY);
 %% output LUT
-Lut2coe(Lut,'LutMethodCoe');
+Lut2coe(Lut,strcat(output_path,'LutMethodCoe'));
 disp('已生成LutMethodCoe.coe文件')
 
 
