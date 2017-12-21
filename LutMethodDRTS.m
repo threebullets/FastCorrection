@@ -12,7 +12,7 @@ function [Imgout_LutMethod,Img_Tradition,UnifyLutX,UnifyLutY] = LutMethodDRTS(Im
 %% Distortion
 [Img_Distortion,DistortionLutX,DistortionLutY] = imDistortion(Img_infrared,A,D);
 %% Scaler
-[Img_scaler,ScalerLutX,ScalerLutY] = imScaler(Img_Distortion,fh,fw,h1,w1);
+[Img_scaler,ScalerLutX,ScalerLutY] = imScaler(Img_infrared,fh,fw,h1,w1);
 
 %% Translation
 [Img_translation,TranslationLutX,TranslationLutY] = imTranslation(Img_scaler,tx,ty);

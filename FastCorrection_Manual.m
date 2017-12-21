@@ -1,24 +1,4 @@
-%{
------------------------------------------------------------------------
-CONFIDENTIAL IN CONFIDENCE
-This confidential and proprietary software may be only used as authorized
-by a licensing agreement from liubing (threebullets).
-In the event of publication, the following notice is applicable:
-Copyright (C) 2017-20xx threebullets Corporation
-The entire notice above must be reproduced on all authorized copies.
-Author              :       liubing 
-Email Address       :       15611662571@163.com
-Filename            :       FastCorrection.v
-Data                :       2017-12-18
-Description         :       Fast correction for image registration.
-Modification History    :   1)Modify the output location of .coe
-                            2)Modify the readme file.
 
-Data            By          Version         Change Description
-=========================================================================
-17/12/18        liubing       2.1               Modify
--------------------------------------------------------------------------
-%}
 %% 
 clear
 clc
@@ -44,7 +24,7 @@ if (exist(output_path,'dir')==0)%如果文件夹不存在
 end
 output_path = strcat(file_path,'output\');
 %% read two images 
-[filename,pathname]=uigetfile({'*.*','All Files(*.*)'},'Select  visible image',...
+[filename,pathname]=uigetfile({'*.*','All Files(*.*)'},'Select visible image',...
                           input_path);
 Img_visible=imread(strcat(pathname,filename));
 [filename,pathname]=uigetfile({'*.*','All Files(*.*)'},'Select infrared image',...

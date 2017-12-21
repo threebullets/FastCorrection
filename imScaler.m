@@ -21,7 +21,7 @@ if nargin == 5
             output_H = varargin{1};
             output_W = varargin{2};
         end
-else
+elseif nargin ~= 5 && nargin ~= 3
         disp('The number of imScaler''s input parameters of  is WRONG! ');
         return;
 end

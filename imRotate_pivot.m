@@ -21,15 +21,15 @@ RotateLutX = zeros(Hout,Wout);
 RotateLutY = zeros(Hout,Wout);  
   
 %% Rotate
-for x=1:Wout  
-    for y=1:Hout  
+for x=1:Hout  
+    for y=1:Wout  
         x0 = uint32(x*cos_val + y*sin_val -pivotW*cos_val-pivotH*sin_val+pivotW);  
         y0= uint32(y*cos_val-x*sin_val+pivotW*sin_val-pivotH*cos_val+pivotH);      
           
         x0=round(x0);         %最邻近插值  
         y0=round(y0);         %最邻近插值  
 
-        if x0>0 && y0>0&& Win >= x0&& Hin >= y0  
+        if x0>0 && y0>0&& Hin >= x0&& Win >= y0  
             Img_rotate(x,y) = Img(x0,y0);  
             RotateLutX(x,y) = x0;
             RotateLutY(x,y) = y0;

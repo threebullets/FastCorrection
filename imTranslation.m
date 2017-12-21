@@ -15,15 +15,15 @@ TranslationLutX = zeros(Hin,Win);
 TranslationLutY = zeros(Hin,Win);  
   
 %% Translation  
-for x=1:Win  
-    for y=1:Hin  
+for x=1:Hin  
+    for y=1:Win  
         x0 =x-tx;  
         y0= y-ty;      
           
         x0=round(x0);         %最邻近插值  
         y0=round(y0);         %最邻近插值  
 
-        if x0>0 && y0>0&& Win >= x0&& Hin >= y0  
+        if x0>0 && y0>0&& Hin >= x0&& Win >= y0  
             Img_translation(x,y) = Img(x0,y0); 
             TranslationLutX(x,y) = x0;
             TranslationLutY(x,y) = y0;
