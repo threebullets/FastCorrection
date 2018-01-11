@@ -1,4 +1,4 @@
-function [ output_args ] = mat2coe( input_args , output_filename )
+function [ w ] = Lut2coe( input_args , output_filename )
 %函数功能：把输入mat矩阵转换为.coe格式文件输出
 %函数输入：input_args：输入mat矩阵 
 %          output_filename：为输出.coe文件命名

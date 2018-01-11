@@ -11,13 +11,11 @@ Email Address       :       15611662571@163.com
 Filename            :       FastCorrection.v
 Data                :       2017-12-18
 Description         :       Fast correction for image registration.
-Modification History    :   1)FastCorrection.m in v2.0 has been changed as FastCorrecton_manual.m
-                            2)Add a new program named FastCorrecton_auto.m, which can automatically
-                              get parameters in rigid transformation,such as Scaling transformation
-                              ,Translate Transformation and so on .
+Modification History    :   1)Improve some details
+                            
 
 Data            By          Version         Change Description
 =========================================================================
-17/12/18        liubing       3.0               Modify and Add
+18/1/11        liubing       3.1               Improve
 -------------------------------------------------------------------------
 ```
