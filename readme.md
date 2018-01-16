@@ -5,7 +5,7 @@ In the non-coaxial image fusion optical system, when the uncooled infrared detec
 The offset of the infrared image can be solved from the PSO-SIFT program relative to the glimmer image. Rotation, translation and scaling parameters are determined from the offset, and look-up tables are generated based on these parameters. The Look-up table Mothed was used to obtain a corrected infrared image.This result is compared with the results obtained using the PSO-SIFT method. Thus verifying the feasibility of the LUT method.
 
 Acknowledgment:
-Thanks to the PSO-SIFT program from Github provided by zelianwen, which has given me great help.
+Thanks to the PSO-SIFT program from Github provided by zelianwen, who has given me great help.
 
 ## Files Introduction
 FastCorrection_Manual : Manually enter the calibration parameters to get the corrected image.
@@ -28,5 +28,5 @@ imRotate : Image rotate correction
 
 imRotate_pivot : Rotate at a point as the center of rotation
 
-Checkerboard£ºProduce chessboard picture.
+CheckerboardÂ£ÂºProduce chessboard picture.
 
