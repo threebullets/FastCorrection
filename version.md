@@ -11,11 +11,11 @@ Email Address       :       15611662571@163.com
 Filename            :       FastCorrection.v
 Data                :       2017-12-18
 Description         :       Fast correction for image registration.
-Modification History    :   1)Improve some details
+Modification History    :   1)Add function CompressLUT.m
                             
 
 Data            By          Version         Change Description
 =========================================================================
-18/1/11        liubing       3.1               Improve
+18/4/13        liubing       3.3               Add
 -------------------------------------------------------------------------
 ```
